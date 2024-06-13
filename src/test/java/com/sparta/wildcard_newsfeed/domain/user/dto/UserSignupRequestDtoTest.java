@@ -1,29 +1,25 @@
 package com.sparta.wildcard_newsfeed.domain.user.dto;
 
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationGroups.NotBlankGroup;
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationGroups.PatternGroup;
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationGroups.SizeGroup;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import org.junit.jupiter.api.BeforeAll;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static com.sparta.wildcard_newsfeed.exception.validation.ValidationGroups.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName("회원가입 DTO 검증")
+@Slf4j
+@DisplayName("User SignUp Dto Test")
 class UserSignupRequestDtoTest {
 
-    private static Validator validator;
-
-    @BeforeAll
-    public static void init() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     @DisplayName("회원가입_성공")
