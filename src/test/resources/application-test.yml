@@ -6,7 +6,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: test
   datasource:
     url: jdbc:mysql://${DB_URL}/newsfeed
     username: ${DB_USER}
