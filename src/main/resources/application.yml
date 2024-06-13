@@ -27,6 +27,16 @@ spring:
 
 logging.level:
   root: info
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            authentication:
+              UsernamePasswordAuthenticationFilter=DEBUG:
 #  org.hibernate.SQL: debug
 #  org.springframework.security: debug
 #  org.springframework.web: debug

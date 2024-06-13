@@ -11,7 +11,8 @@ import com.sparta.wildcard_newsfeed.security.jwt.dto.TokenDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,8 +24,10 @@ import java.io.IOException;
 import static com.sparta.wildcard_newsfeed.security.jwt.JwtConstants.ACCESS_TOKEN_HEADER;
 import static com.sparta.wildcard_newsfeed.security.jwt.JwtConstants.REFRESH_TOKEN_HEADER;
 
-@Slf4j(topic = "로그인 및 JWT 생성")
+//@Slf4j(topic = "로그인 및 JWT 생성")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     private final ObjectMapper objectMapper;
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
@@ -40,6 +43,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+
+        log.info(request.getRequestURI());
         try {
             AuthRequestDto requestDto = new ObjectMapper().readValue(request.getInputStream(), AuthRequestDto.class);
 
