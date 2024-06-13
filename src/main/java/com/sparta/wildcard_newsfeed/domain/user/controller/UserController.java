@@ -6,6 +6,7 @@ import com.sparta.wildcard_newsfeed.domain.user.dto.UserResponseDto;
 import com.sparta.wildcard_newsfeed.domain.user.dto.UserSignupRequestDto;
 import com.sparta.wildcard_newsfeed.domain.user.dto.UserSignupResponseDto;
 import com.sparta.wildcard_newsfeed.domain.user.service.UserService;
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationSequence;
 import com.sparta.wildcard_newsfeed.security.AuthenticationUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +41,8 @@ public class UserController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CommonResponseDto.class)))
     })
-    public ResponseEntity<CommonResponseDto<UserSignupResponseDto>> signup(@Valid @RequestBody UserSignupRequestDto requestDto) {
+    public ResponseEntity<CommonResponseDto<UserSignupResponseDto>> signup(
+            @Validated(ValidationSequence.class) @RequestBody UserSignupRequestDto requestDto) {
         UserSignupResponseDto responseDto = userService.signup(requestDto);
 
         return ResponseEntity.ok()

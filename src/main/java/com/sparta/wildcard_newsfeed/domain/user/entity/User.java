@@ -3,6 +3,7 @@ package com.sparta.wildcard_newsfeed.domain.user.entity;
 import com.sparta.wildcard_newsfeed.domain.common.TimeStampEntity;
 import com.sparta.wildcard_newsfeed.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
