@@ -9,7 +9,7 @@
 
 .gradle/**
 build/**
-
+.jqwik-database
 # Created by https://www.toptal.com/developers/gitignore/api/java,intellij,intellij+iml,intellij+all,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,intellij,intellij+iml,intellij+all,macos,windows
 

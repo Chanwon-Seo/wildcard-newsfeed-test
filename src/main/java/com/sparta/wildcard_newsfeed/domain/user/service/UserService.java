@@ -28,7 +28,6 @@ import static com.sparta.wildcard_newsfeed.domain.user.dto.emailtemplate.EmailTe
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final AuthCodeService authCodeService;
     private final AuthCodeRepository authCodeRepository;
     private final PasswordEncoder passwordEncoder;
     private final ApplicationEventPublisher eventPublisher;
