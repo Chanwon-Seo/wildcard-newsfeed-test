@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends TimeStampEntity {
     @Id
@@ -33,7 +34,8 @@ public class User extends TimeStampEntity {
     private String profileImageUrl;
 
     @Builder
-    public User(String usercode, String password, String name, String email, String introduce, UserStatusEnum userStatus, LocalDateTime authUserAt, UserRoleEnum userRoleEnum) {
+    public User(Long id, String usercode, String password, String name, String email, String introduce, UserStatusEnum userStatus, LocalDateTime authUserAt, UserRoleEnum userRoleEnum) {
+        this.id = id;
         this.usercode = usercode;
         this.password = password;
         this.name = name;
