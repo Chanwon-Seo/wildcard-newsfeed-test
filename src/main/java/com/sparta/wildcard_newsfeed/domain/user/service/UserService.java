@@ -89,7 +89,7 @@ public class UserService {
             throw new IllegalArgumentException("이미 탈퇴한 사용자입니다.");
         }
 
-        return new UserResponseDto(findUser);
+        return UserResponseDto.of(findUser);
     }
 
     @Transactional
@@ -129,7 +129,7 @@ public class UserService {
         findUser.update(requestDto);
 
         User savedUser = userRepository.save(findUser);
-        return new UserResponseDto(savedUser);
+        return UserResponseDto.of(savedUser);
     }
 
     @Transactional(readOnly = true)

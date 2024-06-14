@@ -1,11 +1,16 @@
 package com.sparta.wildcard_newsfeed.domain.user.dto;
 
+import com.sparta.wildcard_newsfeed.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class UserRequestDto {
 
     @Schema(description = "사용자 이름", example = "홍길동")
@@ -30,5 +35,14 @@ public class UserRequestDto {
 
     public void encryptPassword(String encryptedPassword) {
         this.changePassword = encryptedPassword;
+    }
+
+    public User toUserDomain() {
+        return User.builder()
+                .name(name)
+                .email(email)
+                .introduce(introduce)
+                .password(changePassword)
+                .build();
     }
 }
