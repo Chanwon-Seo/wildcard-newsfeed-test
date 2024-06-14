@@ -85,7 +85,8 @@ class UserControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()));
+                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.message").value("아이디를 작성해주세요"));
     }
 
     @Test
@@ -108,7 +109,9 @@ class UserControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()));
+                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.message").value("비밀번호를 작성해주세요"));
+        ;
     }
 
     @Test
@@ -131,7 +134,9 @@ class UserControllerTest {
         // then
         resultActions.andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()));
+                .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()))
+                .andExpect(jsonPath("$.message").value("이메일을 입력해주세요."));
+        ;
     }
 
 }
