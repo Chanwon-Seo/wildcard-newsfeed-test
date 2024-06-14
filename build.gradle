@@ -1,10 +1,12 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.6'
-    id 'io.spring.dependency-management' version '1.1.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+
+    id 'jacoco'
 }
 
-group = 'com.sparta'
+group = 'com.scw'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -52,9 +54,58 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.0.0")
-
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    // jacoco ADD
+    finalizedBy 'jacocoTestReport'
+    // jacoco END
 }
+
+// jacoco report ADD
+jacocoTestReport {
+    reports {
+        // html로 report 생성하기
+        // 빌드경로/jacoco/report.html 폴더 내부로 경로 설정
+        html.destination file("$buildDir/jacoco/report.html")
+    }
+
+    finalizedBy 'jacocoTestCoverageVerification'
+}
+// jacoco report config
+jacocoTestReport {
+    getClassDirectories().setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        '**/dto',
+                        '**/*Config'
+                ])
+            })
+    )
+}
+// jacoco END
+
+// jacoco coverage config
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.8
+            }
+        }
+    }
+}
+
