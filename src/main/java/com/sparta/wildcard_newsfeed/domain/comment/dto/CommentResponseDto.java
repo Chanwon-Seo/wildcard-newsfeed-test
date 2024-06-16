@@ -23,6 +23,7 @@ public class CommentResponseDto {
     private LocalDateTime updatedAt;
     private Long likeCount;
 
+
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();

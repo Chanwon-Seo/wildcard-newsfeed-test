@@ -4,6 +4,7 @@ import com.sparta.wildcard_newsfeed.domain.comment.dto.CommentRequestDto;
 import com.sparta.wildcard_newsfeed.domain.comment.dto.CommentResponseDto;
 import com.sparta.wildcard_newsfeed.domain.comment.service.CommentService;
 import com.sparta.wildcard_newsfeed.domain.common.CommonResponseDto;
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationSequence;
 import com.sparta.wildcard_newsfeed.security.AuthenticationUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,11 +13,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -39,7 +42,7 @@ public class CommentController {
     public ResponseEntity<CommonResponseDto<CommentResponseDto>> addComment(
             @AuthenticationPrincipal AuthenticationUser user,
             @PathVariable(name = "postId") long postId,
-            @RequestBody CommentRequestDto commentRequestDto
+            @Validated(ValidationSequence.class) @RequestBody CommentRequestDto commentRequestDto
     ) {
         CommentResponseDto commentResponseDto = commentService.addComment(postId, commentRequestDto, user);
         return ResponseEntity.ok()
@@ -59,7 +62,7 @@ public class CommentController {
     })
     public ResponseEntity<CommonResponseDto<CommentResponseDto>> updateComment(
             @AuthenticationPrincipal AuthenticationUser user,
-            @Valid @RequestBody CommentRequestDto commentRequestDto,
+            @Validated(ValidationSequence.class) @RequestBody CommentRequestDto commentRequestDto,
             @PathVariable(name = "postId") Long postId,
             @PathVariable(name = "commentId") long commentId
     ) {
