@@ -10,6 +10,7 @@ import com.sparta.wildcard_newsfeed.domain.post.dto.PostRequestDto;
 import com.sparta.wildcard_newsfeed.domain.post.dto.PostResponseDto;
 import com.sparta.wildcard_newsfeed.domain.post.repository.PostRepository;
 import com.sparta.wildcard_newsfeed.domain.post.service.PostService;
+import com.sparta.wildcard_newsfeed.exception.validation.ValidationSequence;
 import com.sparta.wildcard_newsfeed.security.AuthenticationUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +39,6 @@ public class PostController {
 
     private final PostService postService;
     private final CommentService commentService;
-    private final PostRepository postRepository;
 
     // 게시물 등록
     @PostMapping
@@ -49,7 +50,7 @@ public class PostController {
     })
     public ResponseEntity<CommonResponseDto<PostResponseDto>> addPost(
             @AuthenticationPrincipal AuthenticationUser user,
-            @Valid @ModelAttribute PostRequestDto postRequestDto
+            @Validated(ValidationSequence.class) @ModelAttribute PostRequestDto postRequestDto
     ) {
         PostResponseDto postResponseDto = postService.addPost(postRequestDto, user);
         return ResponseEntity.ok()
@@ -73,13 +74,13 @@ public class PostController {
 
         return ResponseEntity.ok()
                 .body(CommonResponseDto.builder()
-                .statusCode(HttpStatus.OK.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("게시물 전체 조회 성공")
                         .data(posts)
                         .build());
     }
 
-//    // 게시물 단일 조회 + 해당 게시물에 달린 댓글 전체 조회
+    //    // 게시물 단일 조회 + 해당 게시물에 달린 댓글 전체 조회
     @GetMapping("/{postId}")
     @Operation(summary = "게시물 단일 조회")
     @ApiResponses({
@@ -115,7 +116,7 @@ public class PostController {
     })
     public ResponseEntity<CommonResponseDto<PostResponseDto>> updatePost(
             @AuthenticationPrincipal AuthenticationUser user,
-            @Valid @ModelAttribute PostRequestDto postRequestDto,
+            @Validated(ValidationSequence.class) @ModelAttribute PostRequestDto postRequestDto,
             @PathVariable Long postId
     ) {
         PostResponseDto postResponseDto = postService.updatePost(postRequestDto, postId, user);

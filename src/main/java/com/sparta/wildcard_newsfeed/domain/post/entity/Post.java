@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-// Todo 배포시 여기 @Setter 삭제
 @Setter
 @Entity
 @NoArgsConstructor
@@ -31,6 +30,7 @@ public class Post extends TimeStampEntity {
     private String content;
 
     @Setter
+    @Column(nullable = false)
     private Long likeCount;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -38,6 +38,25 @@ public class Post extends TimeStampEntity {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostMedia> postMedias = new ArrayList<>();
+
+    public Post(Long id, User user, String title, String content, Long likeCount, List<Comment> comments, List<PostMedia> postMedias) {
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        this.likeCount = likeCount;
+        this.comments = comments;
+        this.postMedias = postMedias;
+    }
+
+    @Builder
+    public Post(User user, String title, String content, Long likeCount, List<Comment> comments, List<PostMedia> postMedias) {
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        this.likeCount = likeCount;
+        this.comments = comments;
+        this.postMedias = postMedias;
+    }
 
     public Post(PostRequestDto postRequestDto, User user) {
         this.user = user;

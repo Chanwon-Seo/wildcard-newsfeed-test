@@ -1,6 +1,7 @@
 package com.sparta.wildcard_newsfeed.domain.comment.dto;
 
 import com.sparta.wildcard_newsfeed.domain.post.dto.PostResponseDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

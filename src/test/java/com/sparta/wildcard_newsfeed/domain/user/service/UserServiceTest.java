@@ -189,7 +189,12 @@ public class UserServiceTest {
         MockMultipartFile file = new MockMultipartFile("file", "test.jpg", "image/jpeg", "test image".getBytes());
         String s3Url = "https://s3.bucket.url/profiles/test.jpg";
 
-        User user = new User("testUser", "encodedPassword", "test@gmail.com");
+        User user = User.builder()
+                .id(1L)
+                .usercode("testUser")
+                .password("encodedPassword")
+                .email("test@gmail.com")
+                .build();
 
         when(userRepository.findByUsercode(anyString())).thenReturn(Optional.of(user));
         when(fileService.uploadFileToS3(any(MockMultipartFile.class))).thenReturn(s3Url);
