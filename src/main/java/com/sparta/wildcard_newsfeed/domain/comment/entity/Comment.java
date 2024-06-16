@@ -30,6 +30,7 @@ public class Comment extends TimeStampEntity {
     @Setter
     private Long likeCount;
 
+    @Builder
     public Comment(String content, User user, Post post) {
         this.content = content;
         this.user = user;

@@ -81,8 +81,17 @@ jacocoTestReport {
                 fileTree(dir: it, exclude: [
                         '**/*util',
                         '**/*entity',
+                        '**/*token',
+                        '**/*validation',
+                        '**/*liked',
                         '**/*aop',
-                        '**/*Config'
+                        '**/*Enum',
+                        '**/*jwt',
+                        '**/*file',
+                        '**/*config',
+                        'com.sparta.wildcard_newsfeed.TestDB.*',
+                        '**/*security',
+                        '**/*customexception',
                 ])
             })
     )
