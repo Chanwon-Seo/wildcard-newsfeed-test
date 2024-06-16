@@ -9,3 +9,11 @@
 
 feat: "회원 가입 기능 구현"
 - SMS, 이메일 중복확인 API 개발
+
+### Jacoco Test 범위
+- User, Post, Comment
+- Controller
+- Service
+- DTO
+
+![img.png](img.png)
