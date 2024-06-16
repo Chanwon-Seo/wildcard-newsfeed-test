@@ -2,11 +2,15 @@ package com.sparta.wildcard_newsfeed.domain.comment.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sparta.wildcard_newsfeed.domain.comment.entity.Comment;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class CommentResponseDto {
     private Long postId;
     private Long id;
